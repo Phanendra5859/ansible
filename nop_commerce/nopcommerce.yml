@@ -1,27 +1,27 @@
 ---
 - name: install nop commerce
   become: yes
-  hosts: localhost
+  hosts: hosts
   tasks: 
     - name: download the debian file
       get_url:
         url: wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
         dest: /tmp/packages-microsoft-prod.deb
     - name: unzip the debian package
-        apt:
-          deb: /tmp/packages-microsoft-prod.deb
+      apt:
+        deb: /tmp/packages-microsoft-prod.deb
     - name: install .net  core runtimes
-        apt: 
-          name: "{{ items }}" 
-          update_cache: yes
-          state: present
-        with_items:
+      apt: 
+        name: "{{ items }}" 
+        update_cache: yes
+        state: present
+      with_items:
         - apt-transport-https
         - aspnetcore-runtime-3.1
     - name: install nginix
-        apt:     
-          name: nginx
-          state: present
+      apt:     
+        name: nginx
+        state: present
     - name: ensure nginx is running
       ansible.builtin.systemd:
         name: nginx
