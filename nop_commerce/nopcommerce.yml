@@ -45,8 +45,7 @@
         remote_src: yes
     - name: make a directory
       ansible.builtin.file:
-        path: "{{ Nginx_home }}/bin"
-        path: "{{ Nginx_home }}/logs"
+        path: "{{ Nginx_home }}/bin | {{ Nginx_home }}/logs"
         state: directory
     - name: change permission of files
       file: 
