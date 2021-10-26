@@ -1,7 +1,7 @@
 ---
 - name: install nop commerce
   become: yes
-  hosts: all
+  hosts: localhost
   tasks: 
     - name: download the debian file
       get_url:
