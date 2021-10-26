@@ -1,0 +1,74 @@
+---
+- name: install nop commerce
+  become: yes
+  hosts: all
+  tasks: 
+    - name: download the debian file
+      get_url:
+        url: wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+        dest: /tmp/packages-microsoft-prod.deb
+    - name: unzip the debian package
+        apt:
+          deb: /tmp/packages-microsoft-prod.deb
+    - name: install .net  core runtimes
+        apt: 
+          name: "{{ items }}" 
+          update_cache: yes
+          state: present
+        with_items:
+        - apt-transport-https
+        - aspnetcore-runtime-3.1
+    - name: install nginix
+        apt:     
+          name: nginx
+          state: present
+    - name: ensure nginx is running
+      ansible.builtin.systemd:
+        name: nginx
+        state: started    
+    - name: configure ngnix as reverse proxy
+      ansible.builtin.copy:
+        src: nginx_config.xml
+        dest: "{{ Nginx_config_location }}"    
+    - name: make a directory
+      ansible.builtin.file:
+        path: "{{ NOPcommerce_home }}"
+        state: directory
+    - name: download nop commerce
+      get_url:
+        url: https://github.com/nopSolutions/nopCommerce/releases/download/release-4.40.4/nopCommerce_4.40.4_NoSource_linux_x64.zip
+        dest: /tmp/nopCommerce_4.40.4_NoSource_linux_x64.zip    
+    - name: untar the nop commerce
+      ansible.builtin.unarchive:
+        src: "/tmp/nopCommerce_4.40.4_NoSource_linux_x64.zip"
+        dest: "{{ Nginx_home }}"
+        remote_src: yes
+    - name: make a directory
+      ansible.builtin.file:
+        path: "{{ Nginx_home }}/bin"
+        path: "{{ Nginx_home }}/logs"
+        state: directory
+    - name: change permission of files
+      file: 
+        path: cd ..
+        owner: www-data
+        group: www-data
+        mode: 0755
+    - name: create nop commerce service
+      ansible.builtin.copy:
+        src: nopcommerce404.service
+        dest: /etc/systemd/system/nopCommerce440.service
+      notify: 
+        - reload and enable tomcat
+    - name: start nopCommerce440.service
+      ansible.builtin.systemd:
+        name: tomcat.service
+        state: started
+    - name: reload and enable nginx
+      ansible.builtin.systemd:
+        name: nginx.service
+        daemon_reload: yes
+        enabled: yes
+        state: restarted
+
+
