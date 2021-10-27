@@ -45,11 +45,11 @@
         remote_src: yes
     - name: make a directory
       ansible.builtin.file:
-        path: "{{ NOPcommerce_home/item }}"
+        path: "{{ NOPcommerce_home }}/{{ item }}"
         state: directory
       with_items:
         - bin
-        - logs  
+        - logs
     - name: change permission of files
       file: 
         path: "{{ Nginx_home }}"
