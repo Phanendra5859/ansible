@@ -52,7 +52,7 @@
         - logs
     - name: change permission of files
       file: 
-        path: "{{ Nginx_home }}"
+        path: "{{ NOPcommerce_home }}"
         owner: www-data
         group: www-data
         mode: 0755
