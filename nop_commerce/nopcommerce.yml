@@ -27,7 +27,7 @@
         name: nginx
         state: started
     - name: configure ngnix as reverse proxy
-      ansible.built`in.copy:
+      ansible.builtin.copy:
         src: "{{ Nginx_config_src }}"
         dest: "{{ Nginx_config_location }}"
     - name: make a directory
