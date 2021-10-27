@@ -28,8 +28,8 @@
         state: started    
     - name: configure ngnix as reverse proxy
       ansible.builtin.copy:
-        src: nginx_config.xml
-        dest: "{{ Nginx_config_location }}"    
+        src: "{{ Nginx_config_src }}"
+        dest: "{{ Nginx_config_location }}"
     - name: make a directory
       ansible.builtin.file:
         path: "{{ NOPcommerce_home }}"
