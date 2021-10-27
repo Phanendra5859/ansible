@@ -12,7 +12,7 @@
         deb: /tmp/packages-microsoft-prod.deb
     - name: install .net  core runtimes
       apt: 
-        name: "{{ items }}" 
+        name: "{{ item }}" 
         update_cache: yes
         state: present
       with_items:
