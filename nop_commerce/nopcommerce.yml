@@ -56,7 +56,7 @@
         - logs
     - name: change permission of files
       file:
-        path: "{{ NOPcommerce_home }}"
+        path: /var
         owner: www-data
         group: www-data
         mode: 0755
