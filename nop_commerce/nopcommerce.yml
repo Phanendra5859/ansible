@@ -27,9 +27,9 @@
         name: nginx
         state: started
     - name: configure ngnix as reverse proxy
-      ansible.builtin.copy:
+      ansible.built`in.copy:
         src: "{{ Nginx_config_src }}"
-        dest: /etc/nginx/sites-available/default
+        dest: "{{ Nginx_config_location }}"
     - name: make a directory
       ansible.builtin.file:
         path: "{{ NOPcommerce_home }}"
@@ -55,7 +55,7 @@
         mode: 0755
     - name: create nop commerce service
       ansible.builtin.copy:
-        src: nopcommerce404.service
+        src: files/nopcommerce404.service
         dest: /etc/systemd/system/nopCommerce440.service
       notify: 
         - reload and enable tomcat
