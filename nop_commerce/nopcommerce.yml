@@ -41,12 +41,15 @@
     - name: untar the nop commerce
       ansible.builtin.unarchive:
         src: "/tmp/nopCommerce_4.40.4_NoSource_linux_x64.zip"
-        dest: "{{ Nginx_home }}"
+        dest: "{{ NOPcommerce_home  }}"
         remote_src: yes
     - name: make a directory
       ansible.builtin.file:
-        path: "{{ Nginx_home }}/bin | {{ Nginx_home }}/logs"
+        path: "{{ NOPcommerce_home/item }}"
         state: directory
+      with_items:
+        - bin
+        - logs  
     - name: change permission of files
       file: 
         path: "{{ Nginx_home }}"

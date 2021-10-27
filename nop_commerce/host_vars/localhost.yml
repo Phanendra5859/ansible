@@ -1,4 +1,3 @@
 Nginx_config_src: files/nginx_config
 Nginx_config_location: /etc/nginx/sites-available/default
 NOPcommerce_home: /var/www/nopCommerce440
-Nginx_home: /var/www/nopCommerce440
