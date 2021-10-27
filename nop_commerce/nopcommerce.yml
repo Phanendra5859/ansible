@@ -60,11 +60,9 @@
       ansible.builtin.copy:
         src: files/nopcommerce404.service
         dest: /etc/systemd/system/nopCommerce440.service
-      notify: 
-        - reload and enable tomcat
     - name: start nopCommerce440.service
       ansible.builtin.systemd:
-        name: tomcat.service
+        name: nopCommerce440.service
         state: started
     - name: reload and enable nginx
       ansible.builtin.systemd:
