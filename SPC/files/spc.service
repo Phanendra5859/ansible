@@ -4,8 +4,9 @@ After=network.target
 
 [Service]
 
-User=spc
-ExecStart=/usr/bin/java -jar /usr/share/spc/spring-petclinic.jar SuccessExitStatus=143
+User=SPC
+ExecStart=/usr/bin/java -jar /usr/share/spc/spring-petclinic.jar
+SuccessExitStatus=143
 
 [Install]
 WantedBy=multi-user.target
