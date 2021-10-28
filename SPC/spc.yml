@@ -33,6 +33,6 @@
         dest: "{{ SPC_service_dest }}"
     - name: Enable and start spring petclinic
       systemd:
-        name: springpetclinic.service
+        name: spc.service
         enabled: yes
         state: started
