@@ -19,7 +19,7 @@
     - name: add a spc user
       ansible.builtin.user:
         name: "{{ SPC_username }}"
-        password: "{{ SPC_password }}"
+        password: "{{ SPC_Password }}"
         state: present
     - name: change ownership
       file:
