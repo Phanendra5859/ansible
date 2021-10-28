@@ -1,6 +1,6 @@
 ---
 java_package: openjdk-11-jdk
-SPC_username: SPC
+SPC_username: spc
 SPC_service_dest: /etc/systemd/system/spc.service
 SPC_service_local: files/spc.service
 SPC_home: /usr/share/spc/
