@@ -1,6 +1,7 @@
+---
 java_package: openjdk-11-jdk
 SPC_username: SPC
-SPC_Password: SPC
 SPC_service_dest: /etc/systemd/system/spc.service
 SPC_service_local: files/spc.service
 SPC_home: /usr/share/spc/
+SPC_dest: /usr/share/spc/spring-petclinic-2.4.2.jar

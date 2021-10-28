@@ -15,18 +15,24 @@
     - name: download the SPC jar file
       get_url:
         url: "https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar"
-        dest: "{{ SPC_home }}/spring-petclinic.jar"
+        dest: "{{ SPC_dest }}"
     - name: add a spc user
       ansible.builtin.user:
         name: "{{ SPC_username }}"
-        password: "{{ SPC_Password }}"
+        password: "{{ SPC_username }}"
         state: present
     - name: change ownership
       file:
-        path: "/usr/share/spc/spring-petclinic.jar"
-        owner: yes
-        mode: 500
+        path: "{{ SPC_dest }}"
+        owner: "{{ SPC_username }}"
+        mode: '500'
+        state: file
     - name: create a service file
       ansible.builtin.copy:
         src: "{{ SPC_service_local }}"
         dest: "{{ SPC_service_dest }}"
+    - name: Enable and start spring petclinic
+      systemd:
+        name: springpetclinic.service
+        enabled: yes
+        state: started
