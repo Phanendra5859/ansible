@@ -1,0 +1,28 @@
+---
+- name: install spring boot application
+  become: yes
+  hosts: all
+  tasks:
+    - name: update packages and install java
+      apt:
+        name: "{{ java_package }}"
+        update_cache: yes
+        state: present
+    - name: download the SPC jar file
+      get_url:
+        url: "https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar"
+        dest: "/usr/share/spc/spring-petclinic.jar"
+    - name: add a spc user
+      ansible.builtin.user:
+        name: "{{ SPC_username }}"
+        password: "{{ SPC_password }}"
+        state: present
+    - name: change ownership
+      file:
+        path: "/usr/share/spc/spring-petclinic.jar"
+        owner: yes
+        mode: 500
+    - name: create a service file
+      ansible.builtin.copy:
+        src: "{{ SPC_service_local }}"
+        dest: "{{ SPC_service_dest }}"
