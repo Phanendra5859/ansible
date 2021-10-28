@@ -8,10 +8,14 @@
         name: "{{ java_package }}"
         update_cache: yes
         state: present
+    - name: make a directory
+      ansible.builtin.file:
+        path: "{{ SPC_home }}"
+        state: directory
     - name: download the SPC jar file
       get_url:
         url: "https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar"
-        dest: "/usr/share/spc/spring-petclinic.jar"
+        dest: "{{ SPC_home }}/spring-petclinic.jar"
     - name: add a spc user
       ansible.builtin.user:
         name: "{{ SPC_username }}"
